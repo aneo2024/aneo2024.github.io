@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>2026-3-16 按计划行事</title>
+      <link href="/posts/1818297390/"/>
+      <url>/posts/1818297390/</url>
+      
+        <content type="html"><![CDATA[<p>时间:00:22</p><p>地点：宿舍</p><p>俗话说得好，贪多嚼不烂。最好还是别继续改下去了。</p><p>3.15日进展:</p><p>1.配置Hexo的环境</p><p>创建一个新的文件夹：MyPage</p><p>在文件夹下面执行hexo init就行。主要是我之前有下载过node.js和git</p><p>2.将个人博客的页面部署到github上了；</p><p>3.啊啊啊啊，我写不下去了。</p><p>反正就是今天弄好了hexo的背景（包括渐变特效）、导航栏（能显示）</p><p>明天要做的事情：</p><p>1.弄好search功能和link，不能再404了。</p><p>2.优化主界面：改头像和昵称；反正先跟着<a href="https://www.modb.pro/db/54897#github_94%E5%AD%A6%E4%B8%80%E4%B8%8B%E3%80%82">https://www.modb.pro/db/54897#github_94学一下。</a></p><p>3.弄一下markdown？</p><p>要买考研资料吗。。。我服了。。。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 即日所想 </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>2026-3-15 学习如何搭建自己的博客</title>
       <link href="/posts/281221728/"/>
       <url>/posts/281221728/</url>
