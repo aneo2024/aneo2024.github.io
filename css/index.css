@@ -7428,6 +7428,41 @@ blockquote.pullquote.right {
 .read-mode .container .note .note-icon {
   color: var(--font-color);
 }
+#web_bg {
+    /* 主背景图（替换成你的图片URL） */
+    background-image: url("https://cdn.jsdelivr.net/gh/aneo2024/blog-images/img/v2-5667a80f11394579783f096f10add3c5_r.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+/*10s为加载动画的时间，1为加载动画的次数，ease-in-out为动画效果*/
+#page-header,
+#web_bg {
+    -webkit-animation: imgblur 3s 1 ease-in-out;
+    animation: imgblur 3s 1 ease-in-out;
+}
+
+@keyframes imgblur {
+    0% {
+        filter: blur(5px);
+    }
+
+    100% {
+        filter: blur(0px);
+    }
+}
+
+/*适配使用-webkit内核的浏览器 */
+@-webkit-keyframes imgblur {
+    0% {
+        -webkit-filter: blur(5px);
+    }
+
+    100% {
+        -webkit-filter: blur(0px);
+    }
+}
 @import url('https://fonts.googleapis.com/css2?family=Zhi+Mang+Xing&display=swap');
 
 /*设置字体*/
