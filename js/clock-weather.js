@@ -20,22 +20,28 @@ window.addEventListener('DOMContentLoaded', function() {
         </div>
       </div>
     `;
-    // 核心：精准插入到「公告下方、最新文章上方」
-    const asideContent = document.getElementById('aside-content'); // 边栏核心容器
-    const recentPostCard = asideContent.querySelector('.card-recent-post'); // 最新文章卡片
-    const announcementCard = asideContent.querySelector('.card-announcement'); // 公告卡片
-
-    if (recentPostCard && announcementCard) {
-      // 插入到公告和最新文章之间（优先级最高）
-      asideContent.insertBefore(container, recentPostCard);
-    } else if (asideContent) {
-      // 兜底：找不到目标位置时，插入到边栏顶部
-      asideContent.insertBefore(container, asideContent.firstChild);
-    } else {
-      // 最终兜底：挂到body（避免组件丢失）
+const asideContent = document.getElementById('aside-content');
+    if (asideContent) {
+      // 方案1：找到公告卡片，在它后面插入（公告 → 时钟 → sticky_layout）
+      const announcementCard = asideContent.querySelector('.card-announcement');
+      const stickyLayout = asideContent.querySelector('.sticky_layout');
+      
+      if (announcementCard && stickyLayout) {
+        // 把时钟插到「公告」和「sticky_layout」之间（完美位置）
+        asideContent.insertBefore(container, stickyLayout);
+      } 
+    } 
+    // 极端兜底：找不到边栏则挂到body
+    else {
       document.body.appendChild(container);
+      container.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        width: 290px;
+      `;
     }
-  }
+}
   // 2. 时钟+日期更新逻辑
   function updateTimeAndDate() {
     const now = new Date();
@@ -62,16 +68,15 @@ window.addEventListener('DOMContentLoaded', function() {
         return res.json();
       })
       .then(data => {
-        // 校验返回数据是否有效
-        if (!data.results || data.results.length === 0) throw new Error('天气数据为空');
-        
-        const weather = data.results[0].now;
-        const location = data.results[0].location;
-        // 显示最终数据（排版和原版插件一致）
-        document.getElementById('show_area').innerHTML = `
-          📍 ${location.name}<br>
-          🌤️ ${weather.text}　${weather.temperature}℃　湿度 ${weather.humidity}%　风向 ${weather.wind_direction}
-        `;
+      if (!data.results || data.results.length === 0) throw new Error('数据为空');
+      const weather = data.results[0].now;
+      const location = data.results[0].location;
+      // 按你实际返回的字段渲染：城市 + 天气 + 温度 + 更新时间
+      document.getElementById('show_area').innerHTML = `
+        📍 ${location.name}<br>
+        🌤️ ${weather.text}　${weather.temperature}℃<br>
+        <small style="opacity:0.7;">最后更新：${new Date(data.results[0].last_update).toLocaleString('zh-CN')}</small>
+      `;
       })
       .catch(err => {
         document.getElementById('show_area').innerHTML = `
