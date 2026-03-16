@@ -20,28 +20,29 @@ window.addEventListener('DOMContentLoaded', function() {
         </div>
       </div>
     `;
-const asideContent = document.getElementById('aside-content');
+    // 替换掉报错的那段代码，完整的插入逻辑如下：
+    const asideContent = document.getElementById('aside-content');
     if (asideContent) {
-      // 方案1：找到公告卡片，在它后面插入（公告 → 时钟 → sticky_layout）
-      const announcementCard = asideContent.querySelector('.card-announcement');
-      const stickyLayout = asideContent.querySelector('.sticky_layout');
-      
-      if (announcementCard && stickyLayout) {
-        // 把时钟插到「公告」和「sticky_layout」之间（完美位置）
-        asideContent.insertBefore(container, stickyLayout);
-      } 
-    } 
-    // 极端兜底：找不到边栏则挂到body
-    else {
-      document.body.appendChild(container);
-      container.style.cssText = `
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        width: 290px;
-      `;
+    // 第一步：先找公告卡片（它是asideContent的直接子节点，无层级问题）
+    const announcementCard = asideContent.querySelector('.card-announcement');
+    
+    if (announcementCard) {
+        // ✅ 最优解：直接在公告卡片后面插入（不用管最新文章的层级）
+        // after()方法不限制目标节点的层级，兼容性100%
+        announcementCard.after(container);
+    } else {
+        // 兜底：找不到公告就插入到边栏顶部（直接子节点操作）
+        asideContent.prepend(container);
     }
-}
+    } else {
+    // 极端兜底：挂到body
+    document.body.appendChild(container);
+    container.style.position = 'fixed';
+    container.style.top = '20px';
+    container.style.right = '20px';
+    container.style.width = '290px';
+    }
+  }
   // 2. 时钟+日期更新逻辑
   function updateTimeAndDate() {
     const now = new Date();
