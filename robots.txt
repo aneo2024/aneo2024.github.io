@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /node_modules/
+Disallow: /public/
+Disallow: /plugins/
+
+Sitemap: https://aneo2024.github.io/sitemap.xml
+Sitemap: https://aneo2024.github.io/baidusitemap.xml
